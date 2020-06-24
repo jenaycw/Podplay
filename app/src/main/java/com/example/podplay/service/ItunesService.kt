@@ -1,6 +1,5 @@
 package com.example.podplay.service
 
-import android.telecom.Call
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,7 +9,7 @@ import retrofit2.http.Query
 interface ItunesService{
     @GET("/search?media=podcast")
     fun searchPodcastByTerm(@Query("term")term: String):
-            Call<PodcastResponse>
+            retrofit2.Call<PodcastResponse>
     companion object{
         val instance: ItunesService by lazy {
             val retrofit = Retrofit.Builder()
