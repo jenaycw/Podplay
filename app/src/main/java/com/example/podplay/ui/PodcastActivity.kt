@@ -17,43 +17,48 @@ import com.example.podplay.adapter.PodcastListAdapter
 import com.example.podplay.repository.ItunesRepo
 import kotlinx.android.synthetic.main.activity_podcast.*
 import com.example.podplay.service.ItunesService
-import com.example.podplay.viewmodel.PodcastSummaryViewData
 import com.example.podplay.viewmodel.SearchViewModel
 
 
 class PodcastActivity : AppCompatActivity(),
     PodcastListAdapter.PodcastListAdapterListener {
-    override fun onShowDetails(
-        podcastSummaryViewData: PodcastSummaryViewData) {}
-        private fun showProgressBar() {
-            progressBar.visibility = View.VISIBLE
-        }
-        private fun hideProgressBar() {
-            progressBar.visibility = View.INVISIBLE
-        }
+    override fun onShowDetails(podcastSummaryViewData: SearchViewModel.PodcastSummaryViewData) {
+        TODO("Not yet implemented")
+    }
 
+    private fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
+    }
 
-
+    private fun hideProgressBar() {
+        progressBar.visibility = View.INVISIBLE
+    }
 
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private lateinit var podcastListAdapter: PodcastListAdapter
-    private fun setupToolbar() {   setSupportActionBar(toolbar) }
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+    }
 
     private fun setupViewModels() {
         val service = ItunesService.instance
-        //searchViewModel.iTunesRepo = ItunesRepo(service)
+        searchViewModel.iTunesRepo = ItunesRepo(service)
     }
 
-    private fun updateControls() {   podcastRecyclerView.setHasFixedSize(true)
+    private fun updateControls() {
+        podcastRecyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
         podcastRecyclerView.layoutManager = layoutManager
 
         val dividerItemDecoration = DividerItemDecoration(
-            podcastRecyclerView.context, layoutManager.orientation)
+            podcastRecyclerView.context, layoutManager.orientation
+        )
         podcastRecyclerView.addItemDecoration(dividerItemDecoration)
-        podcastListAdapter = PodcastListAdapter(null,
-            this, this)
+        podcastListAdapter = PodcastListAdapter(
+            null,
+            this, this
+        )
         podcastRecyclerView.adapter = podcastListAdapter
     }
 
@@ -65,7 +70,7 @@ class PodcastActivity : AppCompatActivity(),
         val TAG = javaClass.simpleName
         val itunesService = ItunesService.instance
         val itunesRepo = ItunesRepo(itunesService)
-        itunesRepo.searchByTerm("") {   Log.i(TAG, "Results = $it") }
+
         setupToolbar()
         setupViewModels()
         updateControls()
@@ -79,27 +84,32 @@ class PodcastActivity : AppCompatActivity(),
         val searchManager = getSystemService(Context.SEARCH_SERVICE)
                 as SearchManager
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(componentName))
+            searchManager.getSearchableInfo(componentName)
+        )
         return true
     }
+
     private fun performSearch(term: String) {
+        val itunesService = ItunesService.instance
+        val itunesRepo = ItunesRepo(itunesService)
+        itunesRepo.searchByTerm(term) { Log.i("TAG", "Results = $it") }
         showProgressBar()
-        searchViewModel.searchPodcasts(term) {results ->
+        searchViewModel.searchPodcasts(term) { results ->
             hideProgressBar()
-            toolbar.title = getString(R.string.search_hint)
+            toolbar.title = term
             podcastListAdapter.setSearchData(results)
         }
 
 
-
     }
+
     private fun handleIntent(intent: Intent) {
         if (Intent.ACTION_SEARCH == intent.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY) ?:
-            return
+            val query = intent.getStringExtra(SearchManager.QUERY) ?: return
             performSearch(query)
         }
     }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)

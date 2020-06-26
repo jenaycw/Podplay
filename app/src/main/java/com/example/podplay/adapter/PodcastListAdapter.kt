@@ -9,28 +9,31 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.podplay.R
-import com.example.podplay.viewmodel.PodcastSummaryViewData
+import com.example.podplay.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.search_item.view.*
 
 class PodcastListAdapter(
     private var podcastSummaryViewList:
-        List<PodcastSummaryViewData>?,
+    List<SearchViewModel.PodcastSummaryViewData>?,
     private val podcastListAdapterListener:
-        PodcastListAdapterListener,
+    PodcastListAdapterListener,
     private val parentActivity: Activity
 ) :
     RecyclerView.Adapter<PodcastListAdapter.ViewHolder>() {
     interface PodcastListAdapterListener {
         fun onShowDetails(
             podcastSummaryViewData:
-            PodcastSummaryViewData)
+            SearchViewModel.PodcastSummaryViewData
+        )
     }
 
-    inner class ViewHolder(v: View,
+    inner class ViewHolder(
+        v: View,
         private val podcastListAdapterListener:
-        PodcastListAdapterListener) :
+        PodcastListAdapterListener
+    ) :
         RecyclerView.ViewHolder(v) {
-        var podcastSummaryViewData: PodcastSummaryViewData? = null
+        var podcastSummaryViewData: SearchViewModel.PodcastSummaryViewData? = null
         val nameTextView: TextView = v.podcastNameTextView
         val lastUpdatedTextView: TextView = v.podcastLastUpdatedTextView
         val podcastImageView: ImageView = v.podcastImage
@@ -46,7 +49,8 @@ class PodcastListAdapter(
 
     fun setSearchData(
         podcastSummaryViewData:
-        List<PodcastSummaryViewData>) {
+        List<SearchViewModel.PodcastSummaryViewData>
+    ) {
         podcastSummaryViewList = podcastSummaryViewData
         this.notifyDataSetChanged()
     }
@@ -60,8 +64,10 @@ class PodcastListAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder,
-        position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
         val searchViewList = podcastSummaryViewList ?: return
         val searchView = searchViewList[position]
         holder.podcastSummaryViewData = searchView
@@ -71,7 +77,8 @@ class PodcastListAdapter(
             .load(searchView.imageUrl)
             .into(holder.podcastImageView)
     }
+
     override fun getItemCount(): Int {
-            return podcastSummaryViewList?.size ?: 0
-        }
+        return podcastSummaryViewList?.size ?: 0
     }
+}
