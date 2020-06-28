@@ -90,6 +90,7 @@ class PodcastActivity : AppCompatActivity(),
         setupToolbar()
         setupViewModels()
         updateControls()
+        addBackStackListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -102,6 +103,8 @@ class PodcastActivity : AppCompatActivity(),
         searchView.setSearchableInfo(
             searchManager.getSearchableInfo(componentName)
         )
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            podcastRecyclerView.visibility = View.INVISIBLE }
         if (podcastRecyclerView.visibility == View.INVISIBLE) {
             searchMenuItem.isVisible = false
         }
@@ -173,6 +176,12 @@ class PodcastActivity : AppCompatActivity(),
     }
 
     private val podcastViewModel by viewModels<PodcastViewModel>()
+    private fun addBackStackListener() {
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                podcastRecyclerView.visibility = View.VISIBLE     }
+        }
+    }
 
 
 }
