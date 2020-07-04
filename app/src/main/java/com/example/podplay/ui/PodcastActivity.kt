@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.podplay.R
 import com.example.podplay.adapter.PodcastListAdapter
+import com.example.podplay.db.PodPlayDatabase
 import com.example.podplay.repository.ItunesRepo
 import com.example.podplay.repository.PodcastRepo
+import com.example.podplay.service.FeedService
 import kotlinx.android.synthetic.main.activity_podcast.*
 import com.example.podplay.service.ItunesService
 import com.example.podplay.viewmodel.PodcastViewModel

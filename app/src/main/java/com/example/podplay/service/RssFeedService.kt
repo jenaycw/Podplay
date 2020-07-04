@@ -27,14 +27,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package com.example.podplay.service
 
-
+import com.example.podplay.util.DateUtils
 import okhttp3.*
 import org.w3c.dom.Node
 import java.io.IOException
 import javax.xml.parsers.DocumentBuilderFactory
 
-class RssFeedService: FeedService  {
+class RssFeedService: FeedService {
   override fun getFeed(xmlFileURL: String, callBack: (RssFeedResponse?) -> Unit) {
 
     val client = OkHttpClient()

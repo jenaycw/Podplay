@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.podplay.R
+import com.example.podplay.util.DateUtils
+import com.example.podplay.util.HtmlUtils
 import com.example.podplay.viewmodel.PodcastViewModel
 import kotlinx.android.synthetic.main.episode_item.view.*
 

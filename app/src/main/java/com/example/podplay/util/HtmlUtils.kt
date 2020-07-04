@@ -27,7 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
+package  com.example.podplay.util
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
