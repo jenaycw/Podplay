@@ -28,8 +28,6 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.podplay.util
-
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

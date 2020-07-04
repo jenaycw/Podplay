@@ -28,7 +28,6 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.podplay.service
 
 import java.util.*
 

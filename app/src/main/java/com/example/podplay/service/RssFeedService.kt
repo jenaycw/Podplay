@@ -28,9 +28,7 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.podplay.service
 
-import com.raywenderlich.podplay.util.DateUtils
 import okhttp3.*
 import org.w3c.dom.Node
 import java.io.IOException

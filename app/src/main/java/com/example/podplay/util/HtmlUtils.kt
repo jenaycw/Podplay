@@ -28,8 +28,6 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.podplay.util
-
 import android.os.Build
 import android.text.Html
 import android.text.Spanned

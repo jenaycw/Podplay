@@ -28,8 +28,6 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.podplay.db
-
 import android.content.Context
 import androidx.room.*
 import androidx.room.Room
