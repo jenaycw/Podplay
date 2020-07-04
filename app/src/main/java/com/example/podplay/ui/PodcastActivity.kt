@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.activity_podcast.*
 import com.example.podplay.service.ItunesService
 import com.example.podplay.viewmodel.PodcastViewModel
 import com.example.podplay.viewmodel.SearchViewModel
+import com.raywenderlich.podplay.db.PodPlayDatabase
+import com.raywenderlich.podplay.service.FeedService
 
 
 class PodcastActivity : AppCompatActivity(),
@@ -59,7 +61,10 @@ class PodcastActivity : AppCompatActivity(),
     private fun setupViewModels() {
         val service = ItunesService.instance
         searchViewModel.iTunesRepo = ItunesRepo(service)
-        podcastViewModel.podcastRepo = PodcastRepo()
+        val rssService = FeedService.instance
+        val db = PodPlayDatabase.getInstance(this)
+        val podcastDao = db.podcastDao()
+        podcastViewModel.podcastRepo = PodcastRepo(rssService, podcastDao)
     }
 
     private fun updateControls() {
