@@ -28,8 +28,7 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.podplay.service
-
+package com.example.podplay.service
 import java.util.*
 
 data class RssFeedResponse(

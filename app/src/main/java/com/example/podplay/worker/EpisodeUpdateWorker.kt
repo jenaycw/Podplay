@@ -28,7 +28,7 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.podplay.worker
+package com.example.podplay.worker
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -42,10 +42,10 @@ import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.podplay.R
+import com.example.podplay.db.PodPlayDatabase
 import com.example.podplay.repository.PodcastRepo
+import com.example.podplay.service.FeedService
 import com.example.podplay.ui.PodcastActivity
-import com.raywenderlich.podplay.db.PodPlayDatabase
-import com.raywenderlich.podplay.service.FeedService
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
