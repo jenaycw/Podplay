@@ -1,25 +1,33 @@
 package com.example.podplay.ui
 
 import android.content.ComponentName
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.text.method.ScrollingMovementMethod
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.podplay.R
+import com.example.podplay.adapter.EpisodeListAdapter
+import com.example.podplay.adapter.EpisodeListAdapterListener
 import com.example.podplay.service.PodplayMediaService
 import com.example.podplay.viewmodel.PodcastViewModel
 import kotlinx.android.synthetic.main.fragment_podcast_details.*
 
-class PodcastDetailsFragment : Fragment() {
+class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
     private lateinit var mediaBrowser: MediaBrowserCompat
     private var mediaControllerCallback: MediaControllerCallback? = null
+    private lateinit var episodeListAdapter: EpisodeListAdapter
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +75,9 @@ class PodcastDetailsFragment : Fragment() {
             Glide.with(activity).load(viewData.imageUrl)
                 .into(feedImageView)
         }
+
     }
+    
     companion object {
         fun newInstance(): PodcastDetailsFragment {
             return PodcastDetailsFragment()
@@ -140,6 +150,32 @@ class PodcastDetailsFragment : Fragment() {
             }
         }
     }
+    private fun startPlaying(
+        episodeViewData: PodcastViewModel.EpisodeViewData) {
+        val fragmentActivity = activity as FragmentActivity
+        val controller =
+            MediaControllerCompat.getMediaController(fragmentActivity)
+        controller.transportControls.playFromUri(
+            Uri.parse(episodeViewData.mediaUrl),
+            null)
+    }
+    override fun onSelectedEpisode(episodeViewData: PodcastViewModel.EpisodeViewData) {
+        val fragmentActivity = activity as FragmentActivity
+        val controller =
+            MediaControllerCompat.getMediaController(fragmentActivity)
+        if (controller.playbackState != null) {
+            if (controller.playbackState.state ==
+                PlaybackStateCompat.STATE_PLAYING) {
+                controller.transportControls.pause()
+            } else {
+                startPlaying(episodeViewData)
+            }
+        } else {
+            startPlaying(episodeViewData)
+        }
+
+    }
+
 
     }
 
