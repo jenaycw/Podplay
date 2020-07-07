@@ -18,8 +18,7 @@ interface EpisodeListAdapterListener {
 class EpisodeListAdapter(
     private var episodeViewList: List<PodcastViewModel.EpisodeViewData>?,
     private val episodeListAdapterListener:
-    EpisodeListAdapterListener
-) :
+    EpisodeListAdapterListener) :
     RecyclerView.Adapter<EpisodeListAdapter.ViewHolder>() {
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 

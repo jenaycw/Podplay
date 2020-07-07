@@ -24,6 +24,7 @@ import com.example.podplay.viewmodel.PodcastViewModel
 import kotlinx.android.synthetic.main.fragment_podcast_details.*
 
 class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
+
     private lateinit var mediaBrowser: MediaBrowserCompat
     private var mediaControllerCallback: MediaControllerCallback? = null
     private lateinit var episodeListAdapter: EpisodeListAdapter
@@ -80,6 +81,7 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
     
     companion object {
         fun newInstance(): PodcastDetailsFragment {
+
             return PodcastDetailsFragment()
         }
     }
@@ -155,9 +157,17 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
         val fragmentActivity = activity as FragmentActivity
         val controller =
             MediaControllerCompat.getMediaController(fragmentActivity)
+        val viewData = podcastViewModel.activePodcastViewData ?:
+        return
+        val bundle = Bundle()
+        bundle.putString(MediaMetadataCompat.METADATA_KEY_TITLE,
+            episodeViewData.title)
+        bundle.putString(MediaMetadataCompat.METADATA_KEY_ARTIST,
+            viewData.feedTitle)
+        bundle.putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI,
+            viewData.imageUrl)
         controller.transportControls.playFromUri(
-            Uri.parse(episodeViewData.mediaUrl),
-            null)
+            Uri.parse(episodeViewData.mediaUrl), bundle)
     }
     override fun onSelectedEpisode(episodeViewData: PodcastViewModel.EpisodeViewData) {
         val fragmentActivity = activity as FragmentActivity
