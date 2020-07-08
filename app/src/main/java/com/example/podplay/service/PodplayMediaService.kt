@@ -57,7 +57,8 @@ class PodplayMediaService : MediaBrowserServiceCompat(), PodplayMediaCallback.Po
         clientUid: Int, rootHints: Bundle?
     ):
             BrowserRoot? {
-        return  MediaBrowserServiceCompat.BrowserRoot(     PODPLAY_EMPTY_ROOT_MEDIA_ID, null)
+        return  MediaBrowserServiceCompat.BrowserRoot(
+            PODPLAY_EMPTY_ROOT_MEDIA_ID, null)
 
     }
 

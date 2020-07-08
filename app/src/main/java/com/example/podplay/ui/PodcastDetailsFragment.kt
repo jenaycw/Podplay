@@ -34,6 +34,7 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        initMediaBrowser()
     }
 
 
@@ -63,7 +64,6 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
         inflater.inflate(R.menu.menu_details, menu)
         updateControls()
 
-        initMediaBrowser()
 
     }
 
@@ -78,7 +78,7 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
         }
 
     }
-    
+
     companion object {
         fun newInstance(): PodcastDetailsFragment {
 
@@ -91,7 +91,7 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
                                        MediaMetadataCompat?) {
             super.onMetadataChanged(metadata)
             println(
-                "metadata changed to ${metadata?.getString(   
+                "metadata changed to ${metadata?.getString(
                     MediaMetadataCompat.METADATA_KEY_MEDIA_URI)}")
         }      override fun onPlaybackStateChanged(state: PlaybackStateCompat?)
         {
@@ -115,9 +115,9 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
             super.onConnectionSuspended()
             println("onConnectionSuspended")
         }
-            override fun onConnectionFailed() {
+        override fun onConnectionFailed() {
 
-            }
+        }
     }
     private fun initMediaBrowser() {
         val fragmentActivity = activity as FragmentActivity
@@ -187,8 +187,4 @@ class PodcastDetailsFragment : Fragment(), EpisodeListAdapterListener {
     }
 
 
-    }
-
-
-
-
+}
